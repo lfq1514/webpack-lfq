@@ -6,9 +6,6 @@ let UglifyjsPlugin = require('uglifyjs-webpack-plugin')
 let { CleanWebpackPlugin } = require('clean-webpack-plugin')
 let CopyWebpackPlugin= require('copy-webpack-plugin')
 let webpack=require('webpack')
-//cleanWebpackPlugin   需要安装第三方模块
-//copyWebpackPlugin    需要安装第三方模块
-//bannerPlugin  内置的插件
 module.exports={
     // mode:'production',
     //多入口
@@ -162,6 +159,11 @@ module.exports={
         // }
       },
     plugins:[
+          //引用动态链接库插件
+          new webpack.DllReferencePlugin({
+            manifest:path.resolve(__dirname,'dist','manifest.json')
+
+        }),
         new webpack.IgnorePlugin(/\.\/locale/,/moment/),
         // new webpack.DefinePlugin({//定义环境变量（webpack内置的插件）
         //     DEV:JSON.stringify('dev'),//这里需要使用stringify来进行字符串化，直接使用DEV:"dev"会把dev认为是一个变量
@@ -184,10 +186,10 @@ module.exports={
         //     $: 'jquery'
         // }),
         //打包之前删除指定的文件(这个插件默认会清除 output.path 输出的目录)
-        new CleanWebpackPlugin({
-            //这个参数配置要删除那些文件，和不要删除那些文件，不要删除的文件前面加个逻辑运算符非 ! ，*号可以通过站位符来处理，表示什么开头，什么结尾啥的
-            // cleanOnceBeforeBuildPatterns:''
-        }),
+        // new CleanWebpackPlugin({
+        //     //这个参数配置要删除那些文件，和不要删除那些文件，不要删除的文件前面加个逻辑运算符非 ! ，*号可以通过站位符来处理，表示什么开头，什么结尾啥的
+        //     // cleanOnceBeforeBuildPatterns:''
+        // }),
 
         //打包的时候将其他一些不在依赖关系里的文件拷贝到指定打包目录下。
         // new CopyWebpackPlugin([
