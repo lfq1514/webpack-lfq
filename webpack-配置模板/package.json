@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "happypack": "^5.0.1",
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
     "react": "^16.13.0",

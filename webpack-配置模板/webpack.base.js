@@ -6,6 +6,7 @@ let UglifyjsPlugin = require('uglifyjs-webpack-plugin')
 let { CleanWebpackPlugin } = require('clean-webpack-plugin')
 let CopyWebpackPlugin= require('copy-webpack-plugin')
 let webpack=require('webpack')
+let Happypack=require('happypack')
 module.exports={
     // mode:'production',
     //多入口
@@ -72,6 +73,15 @@ module.exports={
 
                 }
             },
+            //多线程打包（js，css等）
+            // {
+            //     test: /\.js$/,
+            //     use: 'Happypack/loader?id=js',
+            //     include: path.resolve(__dirname, 'src'),//包含src目录下的js
+            //     exclude: /node_modules/ //排除node_modules文件下的js
+            // },
+
+            //处理js文件
             {
                 test: /\.js$/,
                 use: {
@@ -159,11 +169,30 @@ module.exports={
         // }
       },
     plugins:[
-          //引用动态链接库插件
-          new webpack.DllReferencePlugin({
-            manifest:path.resolve(__dirname,'dist','manifest.json')
+        //配置多线程打包
+        // new Happypack({
+        //     id:'js',
+        //     use:[{
+        //         loader: 'babel-loader',//语法转化
+        //         options: {
+        //             presets: [//包含babel转化需要的模块
+        //                 "@babel/preset-env" //js语法转化(如es6转es5)
+        //             ],
+        //             plugins: [
+        //                 '@babel/plugin-proposal-class-properties',//转化class类的语法
+        //                 '@babel/plugin-transform-runtime'
+        //             ]
+        //         }
 
-        }),
+        //     }]
+        // }),
+
+          //引用动态链接库插件
+        //   new webpack.DllReferencePlugin({
+        //     manifest:path.resolve(__dirname,'dist','manifest.json')
+        // }),
+
+        //指定要忽略打包的模块
         new webpack.IgnorePlugin(/\.\/locale/,/moment/),
         // new webpack.DefinePlugin({//定义环境变量（webpack内置的插件）
         //     DEV:JSON.stringify('dev'),//这里需要使用stringify来进行字符串化，直接使用DEV:"dev"会把dev认为是一个变量
