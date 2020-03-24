@@ -1,10 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-function Test(){
-    return <div>hello world</div>
-}
 
-ReactDOM.render(<Test/>,document.getElementById('box'))
+
+import "../units/a"
+import "../units/b"
+import $ from 'jquery'
+console.log($)
+console.log('index-------------')
+
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// function Test(){
+//     return <div>hello world</div>
+// }
+
+// ReactDOM.render(<Test/>,document.getElementById('box'))
 
 
 // console.log("index111111")

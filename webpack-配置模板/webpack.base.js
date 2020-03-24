@@ -12,7 +12,7 @@ module.exports={
     //多入口
     entry:{
         index:'./src/index.js',
-        // home:'./src/home.js'
+        home:'./src/home.js'
     },
     output:{
         //[name] 相当于上面两个入口的名字home和other
@@ -135,10 +135,10 @@ module.exports={
 
             },
             //expose-loader  暴露全局的loader 暴露给window全局对象上（内联loader）
-            {
-                test: require.resolve('jquery'),
-                use: 'expose-loader?$'
-            },
+            // {
+            //     test: require.resolve('jquery'),
+            //     use: 'expose-loader?$'
+            // },
            
         ]
     },
@@ -228,10 +228,9 @@ module.exports={
 
         new webpack.BannerPlugin('make 2020 by lfq')
     ],
-    externals: {//配置不打包的模块（如已经通过cdn的方式引入，又在文件中通过import方式引入，可以在这里配置，防止被打包进入）（通过cdn引入后就不要再打包相关的依赖包了）
-        jquery: '$'
-
-    },
+    // externals: {//配置不打包的模块（如已经通过cdn的方式引入，又在文件中通过import方式引入，可以在这里配置，防止被打包进入）（通过cdn引入后就不要再打包相关的依赖包了）
+    //     jquery: '$'
+    // },
 
 
 }

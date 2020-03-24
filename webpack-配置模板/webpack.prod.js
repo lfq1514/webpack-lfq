@@ -6,14 +6,33 @@ let OptimizeCss = require('optimize-css-assets-webpack-plugin')
 module.exports=smart(base,{
     mode:'production',
     optimization:{//优化项(webpack4新提供的),----->添加这一项后,js文件就不会压缩了,需要添加UglifyjsPlugin配置
-        minimizer:[//压缩
-            new UglifyjsPlugin({
-                cache:true,//是否使用缓存
-                parallel:true,//是否并发打包(同时压缩多个js文件)
-                sourceMap:true//是否源码映射(如es6转es5,方便调试)
-            }),//压缩js
-            new OptimizeCss(),//压缩css，使用后必须使用uglifyjs-webpack-plugin插件js才会被压缩
-        ]
+        // minimizer:[//压缩
+        //     new UglifyjsPlugin({
+        //         cache:true,//是否使用缓存
+        //         parallel:true,//是否并发打包(同时压缩多个js文件)
+        //         sourceMap:true//是否源码映射(如es6转es5,方便调试)
+        //     }),//压缩js
+        //     new OptimizeCss(),//压缩css，使用后必须使用uglifyjs-webpack-plugin插件js才会被压缩
+        // ],
+        splitChunks:{//分割代码块(这个是webpack4里的，以前用的是commonChunkPlugins)
+            cacheGroups:{//缓存组
+                common:{//公共的模块
+                    chunks:'initial',
+                    minSize:0,//设置公共文件大小限制
+                    minChunks:2 //设置被引用的次数限制
+
+                },
+                vendor:{//第三方模块
+                    priority:1,
+                    test:/node_modules/,
+                    chunks:'initial',
+                    minSize:0,//设置公共文件大小限制
+                    minChunks:2 //设置被引用的次数限制
+                }
+
+            }
+
+        }
     },
     plugins:[
         new webpack.DefinePlugin({//定义环境变量（webpack内置的插件）
