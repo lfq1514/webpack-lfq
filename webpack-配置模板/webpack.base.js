@@ -158,6 +158,7 @@ module.exports={
 
     },
     devServer: {
+        hot:true,//启用热更新
         port:3000,
         open:true,//开启服务以后自动打开浏览器
          contentBase:'./dist'
@@ -169,6 +170,8 @@ module.exports={
         // }
       },
     plugins:[
+        new webpack.NamedModulesPlugin(),//打印更新的模块路径
+        new webpack.HotModuleReplacementPlugin()//热更新插件
         //配置多线程打包
         // new Happypack({
         //     id:'js',
