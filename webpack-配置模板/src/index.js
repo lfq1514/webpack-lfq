@@ -1,10 +1,21 @@
 
 
-import "../units/a"
-import "../units/b"
-import $ from 'jquery'
-console.log($)
-console.log('index-------------')
+//懒加载
+let button=document.createElement('button')
+button.innerHTML="点我"
+button.style.backgroundColor="red"
+button.addEventListener('click',function(){
+    import('../units/a.js').then((data)=>{
+        console.log(data)
+    })
+})
+document.body.appendChild(button)
+
+// import "../units/a"
+// import "../units/b"
+// import $ from 'jquery'
+// console.log($)
+// console.log('index-------------')
 
 // import React from 'react';
 // import ReactDOM from 'react-dom';
